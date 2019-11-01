@@ -1,4 +1,4 @@
-﻿#+title: git
+#+title: git
 #+auther: derut
 
 * git 始めました
@@ -15,5 +15,46 @@ gViMに vimshell とかという手もあったけど Windows のフォルダ構
 
 * git 初期設定
 今回は github 使うのでアカウントを作った。
+
 [[https://github.com/]]
+
 いまじゃデスクトップ版もあって便利な時代になったな（知ったかぶり）
+
+POSIXなら ~/.netrc に
+#+begin_src .netrc
+machine github.com
+login **@*.com
+password **************
+#+end_src
+（メアドとパスワードは自分で設定したのに）
+とかやると幸せになれる。
+
+あとは適当なリポジトリを作って（コマンドラインはまだよくわかってないのでブラウザで…）、
+#+begin_src sh
+git clone https://github.com/derut144/reminder
+cd reminder
+vim README.org
+#+end_src
+みたいな？
+Markdown じゃなくてわざわざ Emacs org-mode にしてるのに ViM かよってツッコミはもう入れました。
+初期設定で git init ってあるけどリモートからクローンしてきたら別に…
+
+変更が終わったら
+#+begin_src sh
+git add .
+git commit -m "ほげほげ"
+git push
+#+end_src
+最初の git add . をやってなくてエラーが出ててちょっと困ってた。だって見てたサイトに書いてないんだもん！（やつあたり）
+
+- git add [file name] で [file name]をインデックスに追加。.はワイルドカード。
+- git commit -m "コメント"でコミットする。（預けるとか委託ってぐらいの意味？） 
+  -m オプションはコメント指定できる。つけないとエディタが開く。-a 
+  オプションは変更したファイルのみコミットするらしい… git add . 
+  しなくてもいいような気もするけどできたりできなかったり？（よくわかってない）
+- git push [リモートのサーバ名] [デフォルトのブランチ名]。定型文だと git push 
+  origin master でいい。でも git push だけでもできる。複雑なことをやる人はもうちょっとあるらしい。
+
+  よくわからないときは三つともやってれば何とかなる！（よくわかってない人）
+  というかブラウザでやるとGUIで一番楽だったりするのかも知れない。
+

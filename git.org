@@ -9,6 +9,7 @@
 
 
 環境: Windows10 64bit, cygwin64（ｴｯ）
+
 環境への言いわけ: ViM が使いたかった。でも ViM ってシェルがないと使いづらいし gViM で :e C:\Users\なんちゃら～～～ とかやってられない。
 emacsならdiredがあったから問題なかったのかも知れない。
 gViMに vimshell とかという手もあったけど Windows のフォルダ構成がね
@@ -35,7 +36,7 @@ git config --global user.email "user@email.com"
 ssh接続するなら
 #+BEGIN_SRC sh
 ssh-keygen -t rsa -b 4096 -C "user@email.com"
-chmod 600 ~/.ssh
+chmod 600 ~/.ssh     ←なってなかったら
 chmod 600 ~/.ssh/*
 #+END_SRC
 ~/.ssh/configには
@@ -93,7 +94,7 @@ git submodele add https://github.com/derut144/reminder
 #+BEGIN_SRC sh
 git rm hoge.hoge
 #+END_SRC
-する。でもローカルで rm hoge.hoge して git add . してコミットしてプッシュしたら消せる（外道なのかも知れないけど）。
+する。でもローカルで rm hoge.hoge して git add . してコミットして push したら消せる（外道なのかも知れないけど）。
 
 
 コマンド
@@ -103,5 +104,30 @@ git rm hoge.hoge
 | git pull      | ローカルへダウンロードする |
 | git clone     | リポジトリをクローン       |
 | git add       | ローカルの変更を登録       |
+| git commit    | 変更をコミットする         |
 
 
+* まだ未解決
+zshが補完してくれない
+#+begin_src sh
+mkdir ~/.zsh/completion/
+cd ~/.zsh/completion/
+curl -O https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
+curl -O https://raw.github.com/git/git/master/contrib/completion/git-completion.zsh
+mv git-completion.zsh _git
+#+end_src
+して、.zshrcに
+#+begin_src .zshrc
+# brew じゃない
+fpath=(~/.zsh/completion $fpath)
+
+# 補完機能有効にする
+autoload -U compinit
+compinit -u
+#+end_src
+ってやってるのに何でだろう？
+ついでに
+#+begin_src sh
+rm -f ~/.zsh/.zcompdump; compinit
+#+end_src
+もやってるんだけどな

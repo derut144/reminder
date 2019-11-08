@@ -1,0 +1,5 @@
+﻿
+* コンパイルオプション
+#+begin_src sh
+./configure --enable-autodepend --with-w32
+#+end_src

@@ -3,3 +3,20 @@
 #+begin_src sh
 ./configure --disable-darwin --disable-gui --enable-multibyte --enable-xim --with-features=huge --without-x --disable-sysmouse --enable-luainterp=yes --with-lua-prefix=/usr --with-luajit --enable-perlinterp=yes --enable-rubyinterp=yes --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config --enable-python3interp=yes --with-python3-config-dir=/usr/lib/python3.6/config
 #+end_src
+
+~~/.vim/pack/mypackage/start~ にvim pluginを入れてる(git submodule)。
+~~/.vim/pack/mypackage/otp~ は起動時に読み込まないのを入れるらしいんだけど使ってないから削除。
+
+- 見た目用に lightline.vim。iceberg.vim はあんまり趣味じゃなかった、もっとハイコントラストな方が好み。foldCC.vim は便利。
+- clever-f は長文書くならいい。でもいつものことで日本語対応はちょっと……
+#+begin_src .vimrc
+noremap ,[ f「
+noremap ,] f」
+noremap ,. f。
+noremap ,, f、
+noremap ,: f＝
+noremap ,@ fー
+#+end_src
+みたいにするとちょっと幸せに（覚えきれない罠もあるけど）。
+
+

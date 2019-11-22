@@ -3,3 +3,26 @@
 #+begin_src sh
 ./configure --enable-autodepend --with-w32
 #+end_src
+
+git submodule で org-mode の最新版を入れておこうと思ったら
+#+begin_src sh
+make; make install
+#+end_src
+しないと更新されてなかった。
+むしろ M-x org-version を見ろと……謎のエラーが出ると思ってたらこのせいだった罠
+
+ddskkも git の方がいい気がする？
+同じく
+#+begin_src sh
+make; make install
+#+end_src
+やっておく必要がある
+
+* init.el
+#+begin_src 
+
+#+end_src
+
+https://github.com/renard/o-blog
+こんなのがあると楽しい？
+

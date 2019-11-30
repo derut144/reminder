@@ -30,14 +30,14 @@ password **************
 （メアドとパスワードは自分で設定したのに）
 とかやると幸せになれる。
 #+BEGIN_SRC sh
-git config --global user.name "UserName"
-git config --global user.email "user@email.com"
+$ git config --global user.name "UserName"
+$ git config --global user.email "user@email.com"
 #+END_SRC
 ssh接続するなら
 #+BEGIN_SRC sh
-ssh-keygen -t rsa -b 4096 -C "user@email.com"
-chmod 600 ~/.ssh     ←なってなかったら
-chmod 600 ~/.ssh/*
+$ ssh-keygen -t rsa -b 4096 -C "user@email.com"
+$ chmod 600 ~/.ssh     ←なってなかったら
+$ chmod 600 ~/.ssh/*
 #+END_SRC
 ~/.ssh/configには
 #+BEGIN_SRC config
@@ -51,9 +51,9 @@ Host github
 
 あとは適当なリポジトリを作って（コマンドラインはまだよくわかってないのでブラウザで…）、
 #+begin_src sh
-git clone https://github.com/derut144/reminder
-cd reminder
-vim README.org
+$ git clone https://github.com/derut144/reminder
+$ cd reminder
+$ vim README.org
 #+end_src
 みたいな？
 Markdown じゃなくてわざわざ Emacs org-mode にしてるのに ViM かよってツッコミはもう入れました。
@@ -61,9 +61,9 @@ Markdown じゃなくてわざわざ Emacs org-mode にしてるのに ViM か�
 
 変更が終わったら
 #+begin_src sh
-git add .
-git commit -m "ほげほげ"
-git push
+$ git add .
+$ git commit -m "ほげほげ"
+$ git push
 #+end_src
 最初の git add . をやってなくてエラーが出ててちょっと困ってた。だって見てたサイトに書いてないんだもん！（やつあたり）
 
@@ -86,13 +86,13 @@ masterはmaster:masterの略でローカルのmasterをリモートのmasterに�
 あと dotfiles をアップしてたときに ViM plugin とか emacs-lisp とかで git clone してたのがあって
 git submodule しろよって怒られた。
 #+BEGIN_SRC sh
-git submodele add https://github.com/derut144/reminder
+$ git submodele add https://github.com/derut144/reminder
 #+END_SRC
 みたいにする。
 
 ファイルを削除するときは
 #+BEGIN_SRC sh
-git rm hoge.hoge
+$ git rm hoge.hoge
 #+END_SRC
 する。でもローカルで rm hoge.hoge して git add . してコミットして push したら消せる（外道なのかも知れないけど）。
 
@@ -106,6 +106,28 @@ git rm hoge.hoge
 | git add       | ローカルの変更を登録       |
 | git commit    | 変更をコミットする         |
 
+* github pages + jekyll
+** jekyll
+gem で jekyllをインスコ
+#+begin_src sh
+$ gem install bundler jekyll
+#+end_src
+
+Gemfileは [[https://github.com/github/pages-gem]] よりとってきた
+#+begin_src Gemfile
+source "https://rubygems.org"
+gem 'github-pages', group: :jekyll_plugins
+#+end_src
+
+https://qiita.com/stkdev/items/0e2df27736acbea9bd26
+https://qiita.com/koyo-miyamura/items/5ec89ac9689be49a55f6
+
+https://acaird.github.io/computers/2013/05/24/blogging-with-org-and-git
+
+
+** github pages
+derut144.github.io
+でリポジトリを作る
 
 * まだ未解決
 zshが補完してくれない

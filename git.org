@@ -123,11 +123,145 @@ https://qiita.com/stkdev/items/0e2df27736acbea9bd26
 https://qiita.com/koyo-miyamura/items/5ec89ac9689be49a55f6
 
 https://acaird.github.io/computers/2013/05/24/blogging-with-org-and-git
-
-
 ** github pages
-derut144.github.io
+{username}.github.io
 でリポジトリを作る
+
+** インストールはしたけれど……？
+よくわからなかった！（自慢できない）
+一度まっさらになって
+[[http://jekyllrb-ja.github.io/]] の [[http://jekyllrb-ja.github.io/docs/step-by-step/01-setup/][step-by-step]] を見ながら見本を作った。
+上で書いた Gemfile のことは忘れた
+#+begin_src sh
+$ jekyll serve
+#+end_src
+して [[http://localhost:4000]] にアクセスフラッシュ！
+（ ~bundle exec jekyll serve~ すると 「Gemfile で定義されたjekyllのバーションを使用できます。」だって）
+上の方のサイトみると ~jekyll serve~ って ~jekyll s~ って短縮できるらしい。
+
+サイトの構築は
+#+begin_src sh
+$ jekyll build
+#+end_src
+
+https://qiita.com/daddygongon/items/9b7182db29861744fc79#step-by-step
+何かテーマでも入れようとしたらエラー。
+困ったときは ~bundle update~ （知らないけど）。
+
+でも ~An error occured while installing nokogiri (1.10.7)~ とか何とか……。
+まあ多分おま環。
+ええい！ 言われるがままに ~gem install nokogiri -v '1.10.7' --source 'https://rubygem.org/'~ とかやってやる！
+
+俺は無力だ……
+
+でもGoogle先生に聞けば大抵のことは……。
+_config.ymlに
+#+begin_src Gemfile
+exclude: ['Gemfile','Gemfile.lock','Rakefile','vendor']
+#+end_src
+を追加してみる。
+（ [[https://github.com/great-h/great-h.github.io/issues/586][ビルド時に vendor ディレクトリ以下を無視させる #586]] より）
+
+………ダメだったぉ…
+というかエラーメッセージを見てなかった
+#+begin_src sh
+$ gem install nokogiri -- --use-system-libraries
+#+end_src
+やれって書いてあった……これで通った、と思ったでしょ？
+でも ~bundle update~ でまたつまづくんだこれが。
+
+[[https://qiita.com/thunders/items/101c6b329830fb1fb27d]]
+
+#+begin_src sh
+$ bundle config build.nokogiri --use-system-libraries
+#+end_src
+これでようやく通ったぜ……。
+この時点で ~bundle exec jekyll s~ しなきゃいけなくなってる。面倒な
+
+テーマはとりあえず何でもいいんだけど
+_config.ymlに
+#+begin_src _config.yml
+theme: jekyll-theme-minimal
+#+end_src
+みたいに書く。
+
+で、[[https://qiita.com/daddygongon/items/9b7182db29861744fc79#step-by-step]]
+ここを見て _layout/defaults.html を
+#+begin_src html
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+{% seo %}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+    <div align="right">
+      {% include navigation.html %}
+    </div>
+
+    <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
+
+        {% if site.logo %}
+          <img src="{{site.logo | relative_url}}" alt="Logo" />
+        {% endif %}
+
+        <p>{{ site.description | default: site.github.project_tagline }}</p>
+
+        {% if site.github.is_project_page %}
+        <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
+        {% endif %}
+
+        {% if site.github.is_user_page %}
+        <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
+        {% endif %}
+
+        {% if site.show_downloads %}
+        <ul class="downloads">
+          <li><a href="{{ site.github.zip_url }}">Download <strong>ZIP File</strong></a></li>
+          <li><a href="{{ site.github.tar_url }}">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="{{ site.github.repository_url }}">View On <strong>GitHub</strong></a></li>
+        </ul>
+        {% endif %}
+      </header>
+      <section>
+
+      {{ content }}
+
+      </section>
+      <footer>
+        {% if site.github.is_project_page %}
+        <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
+        {% endif %}
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
+    {% if site.google_analytics %}
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', '{{ site.google_analytics }}', 'auto');
+      ga('send', 'pageview');
+    </script>
+    {% endif %}
+  </body>
+</html>
+#+end_src
+とした。
+
+Blog以外のコンテンツが思いつかなくてHomeすら書くことがなかったんでHomeにBlogの内容を書くことでお茶を濁した。
 
 * まだ未解決
 zshが補完してくれない

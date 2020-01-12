@@ -7,7 +7,6 @@
 - Google Drive とか使ってもできるよ！って書いてあるサイトもあったけどどうやってやるの？ってなった←理解してないだけ
 - dotfile を git で管理するのはカッコイイと思う←実用性は特に…どっちかっていうと Windows を使うことが多いので git もないし……デフォルトで入れてくれないかな？
 
-
 環境: Windows10 64bit, cygwin64（ｴｯ）
 
 環境への言いわけ: ViM が使いたかった。でも ViM ってシェルがないと使いづらいし gViM で :e C:\Users\なんちゃら～～～ とかやってられない。
@@ -18,7 +17,6 @@ gViMに vimshell とかという手もあったけど Windows のフォルダ構
 今回は github 使うのでアカウントを作った。
 
 [[https://github.com/]]
-
 いまじゃデスクトップ版もあって便利な時代になったな（知ったかぶり）
 
 POSIXなら ~/.netrc に
@@ -51,8 +49,8 @@ Host github
 
 あとは適当なリポジトリを作って（コマンドラインはまだよくわかってないのでブラウザで…）、
 #+begin_src sh
-$ git clone https://github.com/derut144/reminder
-$ cd reminder
+$ git clone https://github.com/{username}/{repo}
+$ cd {repo}
 $ vim README.org
 #+end_src
 みたいな？
@@ -66,7 +64,6 @@ $ git commit -m "ほげほげ"
 $ git push
 #+end_src
 最初の git add . をやってなくてエラーが出ててちょっと困ってた。だって見てたサイトに書いてないんだもん！（やつあたり）
-
 - git add [file name] で [file name]をインデックスに追加。.はワイルドカード。
 - git commit -m "コメント"でコミットする。（預けるとか委託ってぐらいの意味？） 
   -m オプションはコメント指定できる。つけないとエディタが開く。-a 

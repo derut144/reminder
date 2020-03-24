@@ -1,0 +1,41 @@
+#+TITLE: ラグランジュの未定乗数法
+
+* 定理
+$g(x,y)=0$ のとき $f(x,y)$ の最大となる点 $(a,b)$ が存在するとする.
+
+$$F(x,y,\lambda) = f(x,y) - \lambda g(x,y)$$
+としたときに,
+もしも点 $(a,b)$ で $\partial g / \partial x \neq 0$ または $\partial g / \partial y \neq 0$ ならば
+\alpha が存在して
+$$\frac{\partial F}{\partial x} (a,b,\alpha) = \frac{\partial F}{\partial y} (a,b,\alpha) = \frac{\partial F}{\partial \lambda} (a,b,\alpha) =0$$
+が成り立つ.
+
+* 証明
+
+$g(x,y)=0$ を満たす $(x,y)$ に対して
+$$F(a,b,\lambda) = f(a,b) - \lambda g(a,b) = f(a,b) \geq F(x,y,\lambda)$$
+が成立している.
+
+$$ \frac{\partial F(x,y,\lambda)}{\partial x} = \frac{\partial f(x,y)}{\partial x} - \lambda \frac{\partial g(x,y)}{\partial x} $$
+$$ \frac{\partial F(x,y,\lambda)}{\partial y} = \frac{\partial f(x,y)}{\partial y} - \lambda \frac{\partial g(x,y)}{\partial y} $$
+$$ \frac{\partial F(x,y,\lambda)}{\partial \lambda} = -g(x,y) $$
+
+なので
+$$ \frac{\partial F(a,b,\lambda)}{\partial \lambda} = -g(a,b)=0$$
+
+ここで $\frac{\partial g}{\partial x}(a,b)\neq 0$ とする.
+$$ \alpha = \frac{\partial f / \partial x  (a,b)} {\partial g / \partial x (a,b)} $$
+と置くと
+$$ \frac{\partial F(a,b,\alpha)}{\partial x} = 0$$ 
+
+ここで
+$F(x,y,\lambda)$ は $(a,b,\lambda)$ で極大になるので $$ d F = 0$$
+特に $$ \lambda = \alpha $$ のとき
+
+$$ d F (a,b,\alpha) = \frac{\partial F}{\partial x} (a,b,\alpha) + \frac{\partial F}{\partial y} (a,b,\alpha) + \frac{\partial F}{\partial \lambda} (a,b,\alpha) = \frac{\partial F}{\partial y} (a,b,\alpha) = 0 $$
+
+$\frac{\partial g}{\partial y}(a,b)\neq 0$ のときは
+$$ \alpha = \frac{\partial f / \partial y  (a,b)} {\partial g / \partial y (a,b)} $$
+とおいて以下同様である.
+
+* 例

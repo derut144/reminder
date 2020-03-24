@@ -1,0 +1,176 @@
+#+TITLE: Github Pagesを始めた話
+#+DATE: 2019-12-20
+#+SETUPFILE: ~/reminder/setupfile.org
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: 
+#+JEKYLL_TAGS: jekyll
+#+JEKYLL_PUBLISHED: true
+
+* github pages + jekyll + org を開始するまで
+始まりは終わり。続くとは限らない。
+
+** github へ登録
+いいかげん Windows でも ~git~ とか ~ruby~ とか ~python~ とか ~java~ とか
+デフォルト or apt的なコマンドで一発で入れられるようにならないものか……。
+
+いまだに cygwin 使ってるけど cyg-apt もいろいろあったし、
+cygwin だからのエラーもあるし、開発者が cygwin なんて捨ててるし
+（開幕愚痴攻撃）
+
+https://github.com/
+ここからGUIでアカウント登録できる。
+
+GUIで苦にならないならデスクトップアプリ入れたり
+ブラウザでいいんじゃないかと。
+GUIとか使わないけど。
+Windows の git アプリには git bash とかいうのもついてくるらしい。
+使ってないので知らない。
+
+ということで cygwin で git コマンドうってる。（ようやく本題）
+
+~~/.netrc~ に
+#+begin_src .netrc
+machine github.com
+login user@email.com
+password PASSWORD
+#+end_src
+（メアドとパスワードは自分で設定したのに）
+とかやると幸せになれる。
+
+#+BEGIN_SRC sh
+$ git config --global user.name "UserName"
+$ git config --global user.email "user@email.com"
+#+END_SRC
+
+ssh接続するなら
+#+BEGIN_SRC sh
+$ ssh-keygen -t rsa -b 4096 -C "user@email.com"
+$ chmod 600 ~/.ssh     ←なってなかったら
+$ chmod 600 ~/.ssh/*
+#+END_SRC
+~~/.ssh/config~ には
+#+BEGIN_SRC config
+Host github
+  Hostname github.com
+  User git
+  IdentityFile ~/.ssh/id_rsa
+#+END_SRC
+とか入れておく。[[https://github.com/settings/keys]] > New SSH key に id_rsa.pub（の中身の文字列）を登録。
+
+~git pull~ はリモートからローカルにひっぱってきて、 ~git push~ はローカルからリモートへ押し出す。
+#+begin_src sh
+$ git add .
+$ git commit -m "ほげほげ"
+$ git push
+#+end_src
+最初の git add . をやってなくてエラーが出ててちょっと困ってた。だって見てたサイトに書いてないんだもん！（やつあたり）
+
+** jekyll （ジキルだそう）の導入
+rubyが入ってれば問題はない。
+つまり困るのは Windows だけ。
+Mac とか Ubuntu とか便利なのはあるからおすすめはそっち（使ってないけど）
+
+gem で jekyllをインスコ
+#+begin_src sh
+$ gem install bundler jekyll
+#+end_src
+
+[[http://jekyllrb-ja.github.io/]] の [[http://jekyllrb-ja.github.io/docs/step-by-step/01-setup/][step-by-step]] を見ながら手本通りにやればとりあえずはできた。
+
+けどテーマを入れてみようとしたらエラー
+~An error occured while installing nokogiri (1.10.7)~ とか何とか……。
+
+環境は違うけど [[https://www.kaoriya.net/blog/2013/03/29/]] こんなのを見つけた。
+ググっても微妙にヒットしないあたりおま環というかWin環というか……。
+
+Windows のせいだ、きっとそうだ！
+消費税が10%になったのも、安倍のようなアホが長期政権やってるのも、
+なんちゃら Pay をもはやコンビニでしか使ってないのも、
+シャミ子が悪いんだよ。
+
+#+begin_src sh
+$ gem install nokogiri
+#+end_src
+とかやったときのエラーをよく見たら解決策が書いてあった。
+
+家電の役に立たないマニュアルと違って、
+コマンドのマニュアルはだいたい解決策がのってるから見ろって言われているのに読む癖をつけてないのが原因でした。
+
+#+begin_src sh
+$ gem install nokogiri -- --use-system-libraries
+#+end_src
+やれって書いてあった……これで通った、と思ったでしょ？
+でも ~bundle update~ でまたつまづくんだこれが。
+
+#+begin_src sh
+$ bundle config build.nokogiri --use-system-libraries
+#+end_src
+
+そんなこんなで
+~[(path)/{user}.github.io./]_config.yml~ に
+#+begin_src _config.yml
+theme: jekyll-theme-minimal
+#+end_src
+を追加。
+
+なんやかんやあって
+#+begin_src _config.yml
+title: No Title
+description: >- # this means to ignore newlines until "baseurl:"
+  test site for jekyll, navigation mainly.
+baseurl: "/"
+url: https://user.github.io/
+
+theme: jekyll-theme-minimal
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude: ['Gemfile','Gemfile.lock','Rakefile','vendor'] #エラーが出るのでこうしろって書いてあったけど今回は関係なかった
+permalink: /blog/:year-:month-:day-:title.html          #octpress用にこんなことした
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+#+end_src
+
+で、[[https://qiita.com/daddygongon/items/9b7182db29861744fc79#step-by-step]]
+ここを見て _layout/defaults.html を変更した。
+
+Blog以外のコンテンツが思いつかなくてHomeすら書くことがなかったんでHomeにBlogの内容を書くことでお茶を濁した。
+ 
+** org-mode で書いて jekyll したかった。
+octpress入れた
+
+#+begin_src sh
+$ git clone git://github.com/imathis/octopress.git octopress
+$ cd octopress
+$ bundle install --path vendor/bundle
+#+end_src
+
+#+begin_src 
+cd ~/.emacs.d/site-lisp [elisp用のディレクトリ]
+git clone https://github.com/yoshinari-nomura/org-octopress
+git clone https://github.com/yoshinari-nomura/orglue
+git clone https://github.com/kiwanami/emacs-ctable
+#+end_src
+で ~~/.emacs.d/init.el~ にを追加
+#+begin_src emacs-lisp
+(require 'org-octopress)
+(setq org-octopress-directory-top       "~/octopress/source")
+(setq org-octopress-directory-posts     "~/octopress/source/_posts")
+(setq org-octopress-directory-org-top   "~/octopress/source")
+(setq org-octopress-directory-org-posts "~/octopress/source/blog")
+(setq org-octopress-setup-file          "~/org-sty/setupfile.org")
+#+end_src
+
+使うときは ~M-x org-octpress~ → title → Date選択 ってやる。
+出力は ~C-c C-e~ で "P","x","octpress"（もうちょっと簡単になる気はするけどそれはいつか）
+
+数式を入れたいときは
+[[https://qiita.com/memakura/items/e4d2de379f98ad7be498][Github Pages で数式を ～ MathJax v3 設定のポイント]]
+とか見て ~_include/mathjax-v3.html~ を作り ~_layout/default.html~ に追加。

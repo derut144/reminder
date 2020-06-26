@@ -19,4 +19,6 @@ noremap ,@ fー
 #+end_src
 みたいにするとちょっと幸せに（覚えきれない罠もあるけど）。
 
+~/.vimrc の代わりに ~/.vim/vimrc が使えるって書いてあった……知らんかった
+[[https://github.com/vim-jp/issues/issues/821]]
 

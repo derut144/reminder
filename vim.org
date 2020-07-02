@@ -1,4 +1,9 @@
 ﻿
+* git の場所
+#+begin_src sh
+git clone https://github.com/vim/vim
+#+end_src
+
 * コンパイルオプション
 #+begin_src sh
 ./configure --disable-darwin --disable-gui --enable-multibyte --enable-xim --with-features=huge --without-x --disable-sysmouse --enable-luainterp=yes --with-lua-prefix=/usr --with-luajit --enable-perlinterp=yes --enable-rubyinterp=yes --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config --enable-python3interp=yes --with-python3-config-dir=/usr/lib/python3.6/config
@@ -22,3 +27,27 @@ noremap ,@ fー
 ~/.vimrc の代わりに ~/.vim/vimrc が使えるって書いてあった……知らんかった
 [[https://github.com/vim-jp/issues/issues/821]]
 
+* エラー
+vimをソースインストールしたら、You need to install a terminal library; for example ncurses.とエラーが出た (On Ubuntu)
+#+begin_src emacs-lisp
+sudo apt install ncurses-dev
+#+end_src
+
+Xのコンパイルができなかった
+#+begin_src emacs-lisp
+sudo apt build-dep vim-gtk
+#+end_src
+とかやってもエラー……
+
+[[https://unix.stackexchange.com/questions/158395/apt-get-build-dep-is-unable-to-find-a-source-package]]
+#+begin_src emacs-lisp
+software-properties-gtk
+#+end_src
+then under the "Ubuntu Software" tab click "Source code":
+
+[[https://groups.google.com/forum/#!msg/vim_use/UnP03WN2mlE/wEdoMzE7BAAJ]]
+configure エラーに悩んでたけど
+#+begin_src emacs-lisp
+make reconfig
+#+end_src
+やれって書いてあったらでけた……こんな問題もあったのか←無知

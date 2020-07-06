@@ -1,0 +1,104 @@
+#+TITLE: 公式集
+#+AUTHOR: derut
+* Lagrange の未定乗数法
+$g(x,y)=0$ の条件で $f(x,y)$ の最大値を求める。
+
+\[ \partial g / \partial x \neq 0 または \partial g / \partial y \neq 0 \]
+ならば
+\[ F(x,y) := f(x,y) - \lambda g(x,y) \]
+として
+\[ \frac{\partial F}{\partial x} =  \frac{\partial F}{\partial y} =  \frac{\partial F}{\partial \lambda} =0 \]
+によって求められる。
+* ガンマ関数、ベータ関数
+\[ \Gamma (s) := \int_0^\infty x^{s-1} e^{-x} dx \]
+\[ B (p,q) := \int_0^1 x^{p-1} (1-x)^{q-1} dx \]
+
+\[ \Gamma (s+1) = s \Gamma (x) \]
+\[ \Gamma (1/2) = \sqrt{x}, \Gamma(n) = (n-1)! \]
+\[ B(p,q) = 2 \int_0^{\pi /2} \cos^{2p-1} t \sin^{2q-1} t dt \]
+\[ \int_0^{\pi /2} \cos^n t \sin^m t dt = \frac{1}{2} B ( \frac{n+1}{2}, \frac{m+1}{2}) \]
+\[ I(n) :=  \int_0^{\pi /2} \sin^n t dt =  \frac{1}{2} B ( \frac{1}{2}, \frac{n+1}{2}) = \frac{n-1}{n} I(n-2) \]
+* Sophie German
+\[ a^4 + 4b^4 = (a^2 -2ab + 2 b^2) (a^2 +2ab +2b^2) \]
+* 角の二等分線
+BCの中点をMとする。
+中線定理
+\[ AB \cdot CM = BM \cdot AC \]
+
+\[ (AB+AC)AM = 2AB \cdot AC \cos \frac{A}{2} \]
+\[ AM^2 = AB \cdot AC - BM \cdot CM \]
+* Heron の公式
+$s= \frac{1}{2} (a+b+c)$ とおいて
+\[ S = \sqrt{s(s-a)(s-b)(s-c)} \]
+
+Brahmagupta の公式 (円に内接する四角形)
+$s= \frac{1}{2} (a+b+c+d)$ とおいて
+\[ S = \sqrt{(s-a)(s-b)(s-c)(s-d)} \]
+* Sarrus の公式
+1. $O(0,0),A(a,b),B(c,d)$ のとき、三角形の面積は
+   \[ S = \frac{1}{2} \begin{vmatrix} a & b \\ c & d \end{vmatrix} = \frac{1}{2} |ad-bc| \]
+2. $O(0,0,0),A(x_1,y_1,z_1),B(x_2,y_2,z_2),C(x_3,y_3,z_3)$ のとき、長方体の体積は
+   \[ \frac{1}{6} \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix} \]
+(行列式の絶対値…)
+* 三角比 $15^\circ$, $18^\circ$
+\[ \sin 15^\circ = \frac{\sqrt6 - \sqrt2}{4} , \cos 15^\circ = \frac{\sqrt6 + \sqrt2}{4}, \tan 15^\circ = 2-\sqrt3 \]
+\[ \sin 18^\circ = \frac{\sqrt5 -1}{4}\]
+* Ptolemy(トレミー)の定理
+円に内接する四角形 $ABCD$
+\[ AB \cdot CD + AD \cdot BC (対辺) = AC \cdot BD (対角線) \]
+* 対数
+底変換の公式
+\[ \log_b c = \frac{\log_a c}{\log_a b} \]
+
+その他
+\[ a^{\log_b c} = c^{\log_b a} \]
+\[ (log_a b)(\log_b c) = \log_a c \]
+\[ \log_{a^n} b = \frac{1}{n} \log_a b \]
+* Jordan の不等式
+$x \in [0,\frac{2}{\pi}]$ に対して
+\[ \frac{2}{\pi} x \leq \sin x \leq x \]
+* Cauchy-Schwarz 
+\[ (\mathbf{a} \cdot \mathbf{b} )^2 \leq \| \mathbf{a} \|^2 \| \mathbf{b} \|^2 \]
+
+三角不等式
+\[ \| x \| - \| y \| \leq \| x+y \| \leq \| x \| + \| y \| \]
+* 積分公式
+1. \[ \int_{\alpha}^{\beta} (x-\alpha)(x-\beta) dx = \frac{|a|}{6} (\beta - \alpha)^3 \]
+2. $y=ax^2 + bx+c$ の接線 $y=px+q$, 接点 $x=\alpha$ と 直線 $x=\beta$ で区切られる領域の面積
+   \[ \frac{|a|}{3} (\beta -\alpha)^3 \]
+3. Simpson の公式. $f$ は三次以下とする
+   \[ \int_a^b f(x) dx = \frac{b-a}{6} \left\{ f(a) + 4 f(\frac{a+b}{2}) + f(b) \right\} \]
+4. $r=r(\theta)$ , $\theta=\alpha$ と $\theta=\beta$ とで囲まれた領域の面積
+   \[ \int_\alpha^\beta \frac{1}{2} r(\theta)^2 d \theta \]
+5. 第一種 Eular 積分
+   \[ \int_\alpha^\beta (x -\alpha)^m (x-\beta)^n dx = \frac{m! +n!}{(m+n+1)!} (\beta - \alpha)^{m+n+1} \]
+6. 不定積分
+\begin{align*}
+\int \frac{dx}{\sqrt{x^2+a}} &= \log ( x + \sqrt{x^2+a}) + C \\
+\int \tan x dx &= - \log | \cos x| + C \\
+\int \log x dx &= x(\log x -1) +C \\
+\int \frac{dx}{\cos^2 x} &= \tan x +C \\
+\int \frac{dx}{\sin^2 x} &= -\frac{1}{\tan x} +C \\
+\int_0^{2\pi} \sin^n x \cos ^m x dx &= 0 (m \neq n) \\
+\int \sqrt{x^2 + a^2} dx &= \frac{1}{2} \left( x \sqrt{x^2+a^2} + a^2 \log(x+\sqrt{x^2+a^2}) \right) +C \\
+\int \frac{dx}{\sqrt{a^2 -x^2}} &= \arcsin \frac{x}{a} +C \\
+\int \frac{dx}{x^2+a^2} &= \frac{1}{a} \arctan \frac{x}{a} +C \\
+\int \frac{dx}{x^2-a^2} &= \frac{1}{2a} \log \left| \frac{x-a}{x+a} \right| +C \\
+\int_\mathbb{R} e^{a x^2} dx &= \sqrt{\frac{\pi}{a}} \\
+\int_\mathbb{R} \sin^2 x dx &= \int_\mathbb{R} \cos^2 x dx = \sqrt{\frac{\pi}{2}} 
+\end{align*}
+* Meneraus の定理
+[[https://rikeilabo.com/wp-content/uploads/2018/12/A-090.%E3%83%A1%E3%83%8D%E3%83%A9%E3%82%A6%E3%82%B9%E3%81%AE%E5%AE%9A%E7%90%86%E7%94%BB%E5%83%8F.020.jpeg]]
+* Ceva の定理
+[[https://rikeilabo.com/wp-content/uploads/2018/12/A-080.%E3%83%81%E3%82%A7%E3%83%90%E3%81%AE%E5%AE%9A%E7%90%86%E7%94%BB%E5%83%8F.020-236x300.jpeg]]
+* シグマ
+\[ \sum^{\infty} r^k = \frac{1}{1-r} (r<1 ) \]
+両辺を $r$ で微分する
+\[ \sum^{\infty} k r^{k-1} = \frac{1}{(1-r)^2} (r<1 ) \]
+* 漸化式
+$a_{n+1} = p a_n + f(n)$ の解 $a_n = A p^n + g(n)$
+但し $\deg g \leq \deg f$
+* 二次曲線
+- 楕円 :: $(\frac{x}{a})^2 + (\frac{y}{b})^2 =1$ の焦点 $c^2 = a^2 -b^2$, 面積 $\pi ab$
+- 放物線 :: 準線 $x=-p$, 焦点 $(p,0)$ に対して, 準線と焦点からの距離が等しい点の集合は放物線 $y^2=4px$ 全体。
+- 双曲線 :: $(\frac{x}{a})^2 - (\frac{y}{b})^2 =1$ の焦点 $c^2 = a^2 + b^2$

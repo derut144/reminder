@@ -1,0 +1,33 @@
+﻿* ubuntu 20.04 で samba
+
+#+begin_src sh
+sudo apt install -y samba
+
+sudo vim /etc/smb.conf
+sudo sytemctl restart smbd nmbd
+sudo systemctl enable smbd nmbd # 自動起動設定  
+#+end_src
+
+
+#+begin_src smb.conf
+[global]
+# workgroup を設定する
+workgroup = WORKGROUP
+
+#シンボリックリンクを有効にする
+unix extensions = no
+wide links = yes
+
+#IP アドレスは要変更
+interfaces = 192.168.2.0/24 eth0
+
+bind interfaces only = yes
+map to guest = Bad User
+
+[Share]                         # 任意の共有名称を指定
+   path = /home/share           # 共有フォルダ指定
+   writable = yes               # 書き込みOK
+   create mode = 0777           # フルアクセスでファイル作成
+   directory mode = 0777        # フルアクセスでフォルダ作成
+
+#+end_src

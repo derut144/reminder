@@ -29,8 +29,71 @@ map to guest = Bad User
    writable = yes               # 書き込みOK
    create mode = 0777           # フルアクセスでファイル作成
    directory mode = 0777        # フルアクセスでフォルダ作成
-
 #+end_src
 
+* uim, 
 uim-skk とか使うなら 「Vi協調モード」にチェック入れておくと幸せになれる………色々やる必要なく Esc 押せばいいだけ
 
+~/save~ とか作りたくなったらシンボリックリンクが一番大人しいやり方な気がする
+ln -s [path to save]
+
+* sixals を使いたくなった！
+[[https://ei0124.blog.fc2.com/blog-entry-9.html][ROS(kinetic)でdualshock3を使ってみた]]
+#+begin_quote
+https://retropie.org.uk/forum/topic/2913/guide-use-qtsixa-on-ubuntu-16-04-and-derivatives
+https://askubuntu.com/questions/913599/how-to-connect-dualshock-3-controller-ps3-sixaxis-gamepad-on-ubuntu-16-04
+
+ここを乗り越えるとsixpairとsixadコマンドが使えるようになります
+ubuntu16.04とPS3をつなげてからPS3をROSのノードとして使います
+
+まずはPCとPS3をUSBでつなぎます。つながったのかどうかの確認は
+ls -l /dev/input/js*
+で調べます。ここで/dev/input/js0があればOKです
+有線で使いたいならここでubuntuとPS3の接続は終わりです
+無線で使いたいなら
+sudo sixpair
+で認識後にUSBを外してから
+sudo sixad -s
+で通信を開始します
+PSボタンを押すとつながります。４つのLEDの1つが点灯すればOKです
+
+一つ目のターミナルで
+roscore
+二つ目で
+rosrun joy joy_node
+をしてエラーが出なければOKです。確認したければ三つ目のターミナルで
+rostopic echo -c /joy
+をしてPS3ボタンを押すとコントローラの状態が見られます
+ボタンを押したりスティックを傾けたりしましょう
+
+以上でROSでPS3を使えるようになります
+しかし、接続はできるのですが切断ができませんでした
+これについては調べればすぐに出てきそうです
+
+おまけとしてPS4での手順を述べておきます
+pipを入れてから
+sudo pip install ds4drv
+sudo ds4drv
+ここで待機状態になったらPSボタンとSHAREボタンを同時に長押しします
+LEDが点滅してメッセージが表示されれば接続完了です/dev/input/js0が見つかります
+あとの手順はPS3をROSで使う手順と同じです
+
+rostopicで状態を見てみると、
+ボタン類は基本的にデジタル値を返してジョイスティックはアナログ値を返すようでした
+詳しくわかり次第また報告する・・・かもしれません
+#+end_quote
+
+#+begin_quote
+sudo apt-get update && sudo apt-get install git dialog build-essential pyqt4-dev-tools libusb-dev libjack-dev libbluetooth-dev python-dbus -y
+git clone https://github.com/falkTX/qtsixa.git
+cd qtsixa
+#+end_quote
+
+pyqt4-dev-tools が見つからなかった
+……pyqt5-dev-toolsはあったので qtsixa の方のソースコードを変更してみた
+| PyQt4  | pyqt   |          |
+| pyuic4 | pyuic5 | Makefile |
+| pyrcc4 | pyrcc5 | Makefile |
+……コンパイルでけた……
+
+PSボタンを押しても反応しないぞとか思ってたらなぜか Bluetooth をオフにされてた罠

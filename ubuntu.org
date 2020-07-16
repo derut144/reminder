@@ -31,3 +31,6 @@ map to guest = Bad User
    directory mode = 0777        # フルアクセスでフォルダ作成
 
 #+end_src
+
+uim-skk とか使うなら 「Vi協調モード」にチェック入れておくと幸せになれる………色々やる必要なく Esc 押せばいいだけ
+
